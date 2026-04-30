@@ -16,6 +16,7 @@ const BookSchema = new Schema(
     author: { type: String, required: true, trim: true },
     published: { type: String, required: true, trim: true },
     status: { type: Boolean, default: true },
+    userIdClerk: { type: String, required: true }, // ← das fehlte!
   },
   { timestamps: true },
 );
