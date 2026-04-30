@@ -2,6 +2,7 @@ import { RequestHandler } from "express";
 import { createAnswer } from "../../lib/errorhandling/createAnswer";
 import { createError } from "../../lib/errorhandling/createError";
 import { book } from "./book.model";
+import { ClerkClient, getAuth } from "@clerk/express";
 
 export const GET_allBooks: RequestHandler = async (_req, res, next) => {
   try {
@@ -29,9 +30,14 @@ export const POST_newBook: RequestHandler = async (req, res, next) => {
   try {
     const { userId } = getAuth(req);
 
+    if (!userId) {
+      return res.status(401).json({
+        message: "Unauthorized",
+      });
+    }
+
     const newBook = await book.create({
       ...req.body,
-      userIdClerk: userId,
     });
 
     res
@@ -42,6 +48,8 @@ export const POST_newBook: RequestHandler = async (req, res, next) => {
   }
 };
 
-export const PUT_bookStatus: RequestHandler = async (req, res, next) => {};
+export const PUT_rentBook: RequestHandler = async (req, res, next) => {};
+
+export const PUT_returnBook: RequestHandler = async (req, res, next) => {};
 
 export const DELETE_book: RequestHandler = async (req, res, next) => {};

@@ -1,11 +1,11 @@
 import { z } from "zod";
 
 export const createBookSchema = z.object({
-  titel: z
+  title: z
     .string()
     .trim()
     .min(1, "Title is required")
-    .max(200, "Titel must not exceed 200 characters"),
+    .max(200, "Title must not exceed 200 characters"),
   description: z
     .string()
     .trim()
